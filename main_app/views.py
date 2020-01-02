@@ -78,6 +78,12 @@ def assoc_toy (request, dog_id, toy_id):
   dog = Dog.objects.get(id=dog_id)
   dog.toys.add(toy_id)
   return redirect(dog)
+
+@login_required
+def unassoc_toy(request, dog_id, toy_id):
+  Dog.objects.get(id=dog_id).toys.remove(toy_id)
+  return redirect('detail', dog_id=dog_id)
+  
 @login_required
 def add_photo (request,dog_id):
   S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
